@@ -1,0 +1,5 @@
+/@@{ROOTPREFIX}var/lib/postfix/prng_exch$ VarFile
+/@@{ROOTPREFIX}var/spool/postfix/(active|incoming|maildrop)$ VarDir
+/@@{ROOTPREFIX}var/spool/postfix/public/(pickup|qmgr)$ VarTime
+/@@{ROOTPREFIX}var/spool/postfix/etc/resolv\.conf$ VarTime
+/@@{ROOTPREFIX}var/lib/postfix/smtp_scache.db$ VarFile

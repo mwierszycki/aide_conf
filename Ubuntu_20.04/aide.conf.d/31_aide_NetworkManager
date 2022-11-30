@@ -1,0 +1,11 @@
+/@@{ROOTPREFIX}var/lib/NetworkManager$ VarDir
+/@@{ROOTPREFIX}var/lib/NetworkManager/timestamps$ VarFile
+/@@{ROOTPREFIX}var/lib/NetworkManager/seen-bssids$ VarFile
+/@@{ROOTPREFIX}var/lib/NetworkManager/NetworkManager-intern\.conf$ VarFile
+/@@{ROOTPREFIX}var/lib/NetworkManager/NetworkManager.state$ VarFile
+/@@{ROOTPREFIX}var/lib/NetworkManager/internal-[[:alnum:]-._]+\.lease$ VarFile
+/@@{ROOTPREFIX}@@{RUN}/NetworkManager$ VarDir
+/@@{ROOTPREFIX}@@{RUN}/NetworkManager/devices VarDir
+/@@{ROOTPREFIX}@@{RUN}/NetworkManager/devices/[0-9]+$ VarFile
+/@@{ROOTPREFIX}@@{RUN}/NetworkManager/no-stub-resolv.conf$ VarFile
+/@@{ROOTPREFIX}@@{RUN}/NetworkManager/resolv.conf$ VarFile

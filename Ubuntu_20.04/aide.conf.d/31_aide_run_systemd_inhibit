@@ -1,0 +1,3 @@
+/@@{RUN}/systemd/inhibit$ VarDir
+/@@{RUN}/systemd/inhibit/[0-9]+\.ref$ p VarFile+ANF+ARF
+/@@{RUN}/systemd/inhibit/[0-9]+$ f VarFile+ANF+ARF

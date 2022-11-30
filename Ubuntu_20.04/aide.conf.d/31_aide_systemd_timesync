@@ -1,0 +1,2 @@
+/@@{RUN}/systemd/timesync/synchronized$ VarFile
+/@@{ROOTPREFIX}var/lib/systemd/timesync/clock$ VarFile

@@ -1,0 +1,3 @@
+/var/lib/logrotate$ VarDir
+/var/lib/logrotate/status$ VarFile
+/var/lib/systemd/timers/stamp-logrotate.timer$ VarFile

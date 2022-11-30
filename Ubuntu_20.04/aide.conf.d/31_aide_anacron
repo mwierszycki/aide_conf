@@ -1,0 +1,2 @@
+/@@{ROOTPREFIX}var/spool/anacron/cron\.(monthly|weekly|daily)$ VarFile
+/@@{ROOTPREFIX}var/lib/systemd/timers/stamp-anacron\.timer$ VarFile

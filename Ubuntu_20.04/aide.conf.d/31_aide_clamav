@@ -1,0 +1,22 @@
+/@@{ROOTPREFIX}var/log/clamav/clamav\.log$ FreqRotLog
+/@@{ROOTPREFIX}var/log/clamav/clamav\.log\.1$ LowLog
+/@@{ROOTPREFIX}var/log/clamav/clamav\.log\.2\.gz$ LoSerMemberLog
+/@@{ROOTPREFIX}var/log/clamav/clamav\.log\.([3-9]|1[0-1])\.gz$ SerMemberLog
+/@@{ROOTPREFIX}var/log/clamav/clamav\.log\.12\.gz$ HiSerMemberLog
+
+/@@{ROOTPREFIX}@@{RUN}/clamav/clamd\.(ctl|pid)$ VarFile
+/@@{ROOTPREFIX}var/log/clamav$ VarDir
+/@@{ROOTPREFIX}@@{RUN}/clamav$ VarDirInode
+
+/@@{ROOTPREFIX}var/log/clamav/freshclam\.log$ FreqRotLog 
+/@@{ROOTPREFIX}var/log/clamav/freshclam\.log\.1$ LowLog
+/@@{ROOTPREFIX}var/log/clamav/freshclam\.log\.2\.gz$ LoSerMemberLog
+/@@{ROOTPREFIX}var/log/clamav/freshclam\.log\.([3-9]|1[0-1])\.gz$ SerMemberLog
+/@@{ROOTPREFIX}var/log/clamav/freshclam\.log\.12\.gz$ HiSerMemberLog
+
+/@@{ROOTPREFIX}var/lib/clamav$ VarDir
+/@@{ROOTPREFIX}var/lib/clamav/(daily|main)\.inc$ VarDir
+/@@{ROOTPREFIX}var/lib/clamav/bytecode\.cld$ VarFile
+/@@{ROOTPREFIX}var/lib/clamav/daily\.inc/daily\.(info|[nmhp]db)$ VarFile
+/@@{ROOTPREFIX}var/lib/clamav/mirrors.dat$ VarFile
+/@@{ROOTPREFIX}@@{RUN}/clamav/freshclam\.pid$ VarFile

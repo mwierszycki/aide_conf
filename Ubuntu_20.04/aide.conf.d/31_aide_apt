@@ -1,0 +1,130 @@
+#!/bin/bash
+
+
+. "$UPAC_settingsd/10_aide_sourceslist"
+VARDIR="/var/lib/apt"
+LISTSDIR="$VARDIR/lists"
+CACHEDIR="/var/cache/apt"
+ARCHIVESDIR="$CACHEDIR/archives"
+SYSTEMDDIR="/var/lib/systemd/timers"
+LOGDIR="/var/log/apt"
+# set in /etc/aide/aide.settings.d/31_aide_apt_settings
+IGNORE_ARCHIVES=""
+# set in /etc/aide/aide.settings.d/31_aide_apt_settings
+IGNORE_FRQCHG=""
+APT_VERS=""
+
+if [ -x "$UPAC_confd/31_local_apt_settings" ]; then
+  . "$UPAC_confd/31_local_apt_settings"
+  echo "WARNING: usage of $UPAC_confd/31_local_apt_settings is deprecated, please use $UPAC_settingsd/31_aide_apt_settings" >&2
+elif [ -r "$UPAC_settingsd/31_aide_apt_settings" ]; then
+  # pull in configuration
+  . "$UPAC_settingsd/31_aide_apt_settings"
+fi
+
+echo '@@define TRANSLATIONS (ca|cs|da|de|de_DE|en|eo|es|eu|fi|fr|hr|hu|id|it|ja|km|ko|nb|nl|pl|pt|pt_BR|ro|ru|sk|sr|sv|uk|vi|zh|zh_CN|zh_TW)'
+
+cat $SOURCESLIST /dev/null | sed 's/ #.*$//' | sed -e 's/\[[^][]*\]//g' | while read deb uri dist comp; do
+   if [ -n "$DEBUG" ]; then
+    echo '------------'
+    echo $deb
+    echo $uri
+    echo $dist
+    echo $comp
+    echo '------------'
+  fi
+  PROTOCOL="$(echo $uri | sed 's|\([^:]\+\).*|\1|')"
+  if [ "$PROTOCOL" = "http" ] || [ "$PROTOCOL" = "https" ] || [ "$PROTOCOL" = "ftp" ]; then
+    HOST="$(echo $uri | sed -e 's|.*//\([^/[:space:]]\+\).*|\1|' -e 's|\.|\\\.|g')"
+    HOSTPATH="$(echo $uri | sed -e 's|.*//[^/[:space:]]\+/\?||;s|/$||;s|/|_|g;s|^\(.\+\)$|_\1|' -e 's|\.|\\\.|g')"
+    dist="${dist//\//_}"
+    if [ -n "$DEBUG" ]; then
+      echo "uri $uri"
+      echo "HOST $HOST"
+      echo "HOSTPATH $HOSTPATH"
+      echo "dist $dist"
+      echo "comp $comp"
+    fi
+    if [ "$deb" = "deb" ]; then
+      if [ ! -z "$dist" ] && [ ! "$dist" = "_" ] ; then
+        for c in $comp; do
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_binary-@@{ARCH}_Packages(\.IndexDiff)?$ VarFile"
+          echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_dists_${dist}_${c}_binary-(@@{ARCH}|all)_Packages(\.bz2|\.IndexDiff)?$ VarFile"
+          echo "@@ifdef FOREIGN_ARCHES"
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_binary-@@{FOREIGN_ARCHES}_Packages(\.bz2|\.IndexDiff)?$ VarFile"
+          echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_dists_${dist}_${c}_binary-@@{FOREIGN_ARCHES}_Packages(\.bz2|\.IndexDiff)?$ VarFile"
+          echo "@@endif"
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_i18n_Translation-@@{TRANSLATIONS}(\.IndexDiff)?$ VarFile"
+
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_dep11_Components-@@{ARCH}\.yml\.gz$ VarFile"
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_dep11_icons-[0-9]{2,3}x[0-9]{2,3}\.tar\.gz$ VarFile"
+
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_Contents-@@{ARCH}(\.gz|\.bz2|\.lz4|\.IndexDiff)$ VarFile"
+
+          echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_cnf_Commands-@@{ARCH}(\.gz|\.bz2|\.lz4|\.IndexDiff)?$ VarFile"
+
+          echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_dists_${dist}_${c}_Contents-@@{ARCH}(\.gz|\.bz2|\.lz4|\.IndexDiff)$ VarFile"
+        done
+
+        echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_(InRelease|Release(\.gpg)?)$ VarFile"
+        echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_dists_${dist}_(InRelease|Release(\.gpg)?)$ VarFile"
+        echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_Contents-@@{ARCH}(\.gz|\.bz2|\.lz4|\.IndexDiff)$ VarFile"
+        echo "@@ifdef FOREIGN_ARCHES"
+        echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_Contents-@@{FOREIGN_ARCHES}(\.gz|\.bz2|\.lz4|\.IndexDiff)$ VarFile"
+        echo "@@endif"
+
+        echo "!${LISTSDIR}/partial/${HOST}${HOSTPATH}_dists_${dist}_Release\.gpg\.reverify$"
+      else
+        echo "$LISTSDIR/${HOST}${HOSTPATH}_(InRelease|Release(\.gpg)?)$ VarFile"
+        echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_(InRelease|Release(\.gpg)?)$ VarFile"
+        echo "$LISTSDIR/${HOST}${HOSTPATH}_Packages(\.IndexDiff)?$ VarFile"
+        echo "$LISTSDIR/partial/${HOST}${HOSTPATH}_Packages(\.bz2|\.IndexDiff)?$ VarFile"
+      fi
+    elif [ "$deb" = "deb-src" ]; then
+      for c in $comp; do
+	echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_${c}_source_Sources(\.IndexDiff)?$ VarFile"
+       echo "$LISTSDIR/${HOST}${HOSTPATH}_dists_${dist}_(InRelease|Release(\.gpg)?)$ VarFile"
+      done
+    fi
+  else
+    : # other protocols are not supported. If you feel like they should
+    : # please give a good reason and probably a patch.
+  fi
+  echo -e "\n\n"
+done
+
+echo "${LISTSDIR}(/partial|/auxfiles)?$ VarDir"
+echo "${LISTSDIR}/lock$ VarFile"
+echo "${VARDIR}/periodic/(download-upgradeable|update|unattended-upgrades|upgrade|update-success)-stamp$ VarTime"
+echo "${VARDIR}/(daily_lock|extended_states)$ VarFile"
+echo "${VARDIR}$ VarDir"
+
+echo "${SYSTEMDDIR}/stamp-apt-daily(-upgrade)?\.timer$ VarFile"
+
+echo "${LOGDIR}/(term|history|eipp)\.log(\.xz)?$ FreqRotLog"
+echo "${LOGDIR}/(term|history|eipp)\.log\.1\.gz$ LoSerMemberLog"
+echo "${LOGDIR}/(term|history|eipp)\.log\.([2-9]|1[0-1])\.gz$ SerMemberLog"
+echo "${LOGDIR}/(term|history|eipp)\.log\.12\.gz$ HiSerMemberLog"
+echo "${LOGDIR}$ VarDir"
+
+echo "/var/log/unattended-upgrades/unattended-upgrades(-dpkg)?.log$ Log"
+echo "/run/unattended-upgrades.progress$ LowLog"
+echo "!/run/unattended-upgrades.lock$"
+
+echo "/var/backups/apt\.extended_states\.0$ LowLog"
+echo "/var/backups/apt\.extended_states\.1\.gz$ LoSerMemberLog"
+echo "/var/backups/apt\.extended_states\.[2345]\.gz$ SerMemberLog"
+echo "/var/backups/apt\.extended_states\.6\.gz$ HiSerMemberLog"
+
+if [ "$IGNORE_ARCHIVES" = "yes" ]; then
+  echo "!$ARCHIVESDIR/[-a-zA-Z0-9%\.~_+]+_(@@{ARCH}|all)\.deb$"
+  echo "@@ifdef FOREIGN_ARCHES"
+  echo "!$ARCHIVESDIR/[-a-zA-Z0-9%\.~_+]+_@@{FOREIGN_ARCHES}\.deb$"
+  echo "@@endif"
+fi
+
+if [ "$IGNORE_FRQCHG" = "yes" ]; then
+  echo "$ARCHIVESDIR(/partial|/lock)?$ VarDir"
+  echo "!$CACHEDIR/(src)?pkgcache\.bin$"
+  echo "$CACHEDIR$ VarDir"
+fi

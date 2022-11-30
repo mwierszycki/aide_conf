@@ -1,0 +1,13 @@
+/@@{ROOTPREFIX}var/lib/app-info$ VarDir
+/@@{ROOTPREFIX}var/cache/app-info/cache$ VarDir
+/@@{ROOTPREFIX}var/cache/app-info/cache/(C|[a-z]{2}_[A-Z]{2})(\.utf8)?\.cache$ VarFile
+
+/@@{ROOTPREFIX}var/cache/app-info/xmls$ VarDir
+
+/@@{ROOTPREFIX}var/lib/app-info/yaml$ VarDir
+/@@{ROOTPREFIX}var/lib/app-info/yaml/([a-z]{2}\.archive|security)\.ubuntu\.com_ubuntu_dists_focal(-backports_|-updates_|-security_|_)(main|universe|multiverse)_dep11_Components-@@{ARCH}\.yml\.gz$ VarFile
+
+/var/lib/app-info/icons$ VarDir
+/@@{ROOTPREFIX}var/lib/app-info/icons/ubuntu-focal(-backports|-updates|-security)?-(main|universe|multiverse)$ VarDirInode
+/@@{ROOTPREFIX}var/lib/app-info/icons/ubuntu-focal(-backports|-updates|-security)?-(main|universe|multiverse)/[0-9]{2,3}x[0-9]{2,3}@?2?$ VarDirInode
+/@@{ROOTPREFIX}var/lib/app-info/icons/ubuntu-focal(-backports|-updates|-security)?-(main|universe|multiverse)/[0-9]{2,3}x[0-9]{2,3}@?2?/.+\.png$ VarFile

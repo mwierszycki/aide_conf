@@ -1,0 +1,5 @@
+/var/log/ufw.log$ FreqRotLog
+/var/log/ufw.log\.1$ LowLog
+/var/log/ufw.log\.2\.gz$ LoSerMemberLog
+/var/log/ufw.log\.3\.gz$ SerMemberLog
+/var/log/ufw.log\.4\.gz$ HiSerMemberLog

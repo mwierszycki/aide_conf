@@ -1,0 +1,5 @@
+/@@{RUN}/systemd/resolve$ VarDir
+/@@{RUN}/systemd/resolve/netif$ VarDir
+/@@{RUN}/systemd/resolve/netif/[0-9]+$ VarFile
+/@@{RUN}/systemd/resolve/resolv\.conf$ VarFile
+/@@{RUN}/systemd/resolve/stub-resolv.conf$ VarFile

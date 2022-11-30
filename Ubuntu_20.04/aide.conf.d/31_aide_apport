@@ -1,0 +1,5 @@
+/var/log/apport.log$ FreqRotLog
+/var/log/apport.log\.1$ LowLog
+/var/log/apport.log\.2\.gz$ LoSerMemberLog
+/var/log/apport.log\.3\.gz$ SerMemberLog
+/var/log/apport.log\.4\.gz$ HiSerMemberLog

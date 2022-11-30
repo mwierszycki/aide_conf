@@ -1,0 +1,4 @@
+/@@{ROOTPREFIX}var/cache/apt-xapian-index/index\.[0-9]$ VarDir
+/@@{ROOTPREFIX}var/cache/apt-xapian-index/index\.[0-9]\/[[:alnum:]]+\.glass$ VarFile+ANF+ARF
+/@@{ROOTPREFIX}var/cache/apt-xapian-index/index\.[0-9]\/flintlock$ VarFile+ANF+ARF
+/@@{ROOTPREFIX}var/cache/apt-xapian-index/index\.[0-9]\/iamglass$ VarFile+ANF+ARF

@@ -1,0 +1,3 @@
+!/@@{RUN}/motd\.dynamic$
+/@@{RUN}/motd.d$ VarDirTime
+/@@{RUN}/motd.d/[0-9]+-[[:word:]]+$ VarTime+ANF+ARF-i

@@ -1,0 +1,5 @@
+/@@{RUN}/systemd/(sessions|transient|users|units)$ VarDir
+!/@@{RUN}/systemd/sessions/[0-9](\.ref)?$
+!/@@{RUN}/systemd/transient/session-[0-9]+\.scope$
+!/@@{RUN}/systemd/users/[0-9]+$
+!/@@{RUN}/systemd/units/invocation:[[:alnum:]-._]+\.service$

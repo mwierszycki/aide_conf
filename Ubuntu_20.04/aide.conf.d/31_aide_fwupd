@@ -1,0 +1,7 @@
+/var/cache/fwupd$ VarDir
+/var/cache/fwupd/(metadata|metainfo|quirks)\.xmlb$ VarFile
+/var/cache/fwupd/motd.d/85-fwupd$ VarFile
+
+/var/lib/fwupd/gnupg$ VarDir
+/var/lib/fwupd/metadata/lvfs$ VarDir
+/var/lib/fwupd/metadata/lvfs/metadata\.xml\.gz(\.jcat)?$ VarFile
