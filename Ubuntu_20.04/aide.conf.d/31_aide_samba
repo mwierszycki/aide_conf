@@ -13,6 +13,7 @@
 /@@{ROOTPREFIX}var/glog/samba/cores/[sn]mbd$ VarDir
 
 /@@{RUN}/samba/[sn]mbd\.pid$ VarFile
+/@@{RUN}/samba/smbd_cleanupd\.tdb$ VarFile
 #/@@{RUN}/samba/(gencache(_notrans)?|messages|sessionid|connections|brlock|locking|notify(_onelevel)?|unexpected)\.tdb$ VarFile
 /@@{RUN}/samba/(gencache(_notrans)?|messages|sessionid|connections|brlock|locking|notify(_onelevel)?|unexpected|printer_list)\.tdb$ VarFile
 !/@@{RUN}/samba/namelist\.debug$
