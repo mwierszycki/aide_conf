@@ -1,2 +1,7 @@
 !/var/lib/ubuntu-advantage
-/var/log/ubuntu-advantage-timer.log$ Log
+
+/var/log/ubuntu-advantage-timer.log$ FreqRotLog
+/var/log/ubuntu-advantage-timer.log\.1$ LowLog
+/var/log/ubuntu-advantage-timer.log\.2\.gz$ LoSerMemberLog
+/var/log/ubuntu-advantage-timer.log\.[3-5]\.gz$ SerMemberLog
+/var/log/ubuntu-advantage-timer.log\.6\.gz$ HiSerMemberLog
