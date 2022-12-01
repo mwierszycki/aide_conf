@@ -4,7 +4,7 @@
 /@@{ROOTPREFIX}var/lib/dpkg/(info|updates|lock|alternatives)$ VarDir
 /@@{ROOTPREFIX}var/lib/dpkg$ VarDir
 
-/@@{ROOTPREFIX}var/log/(alternatives|dpkg)\.log$ Log
+/@@{ROOTPREFIX}var/log/(alternatives|dpkg)\.log$ FreqRotLog
 /@@{ROOTPREFIX}var/log/(alternatives|dpkg)\.log\.1$ LowLog
 /@@{ROOTPREFIX}var/log/(alternatives|dpkg)\.log\.2\.gz$ LoSerMemberLog
 /@@{ROOTPREFIX}var/log/(alternatives|dpkg)\.log\.([3-9]|1[0-1])\.gz$ SerMemberLog
