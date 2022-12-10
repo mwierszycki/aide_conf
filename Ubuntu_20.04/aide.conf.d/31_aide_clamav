@@ -16,7 +16,7 @@
 
 /@@{ROOTPREFIX}var/lib/clamav$ VarDir
 /@@{ROOTPREFIX}var/lib/clamav/(daily|main)\.inc$ VarDir
-/@@{ROOTPREFIX}var/lib/clamav/(bytecodei|daily)\.cld$ VarFile
+/@@{ROOTPREFIX}var/lib/clamav/(bytecode|daily)\.cld$ VarFile
 /@@{ROOTPREFIX}var/lib/clamav/daily\.inc/daily\.(info|[nmhp]db)$ VarFile
 /@@{ROOTPREFIX}var/lib/clamav/mirrors.dat$ VarFile
 /@@{ROOTPREFIX}@@{RUN}/clamav/freshclam\.pid$ VarFile
