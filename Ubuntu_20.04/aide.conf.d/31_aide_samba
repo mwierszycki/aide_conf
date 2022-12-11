@@ -22,7 +22,7 @@
 
 /@@{ROOTPREFIX}var/lib/samba/(wins\.dat|(group_mapping\.l|(wins|registry|ntprinters|schannel_store)\.t)db)$ VarFile
 /@@{ROOTPREFIX}var/lib/samba/private/msg\.sock$ VarDir
-/@@{ROOTPREFIX}var/lib/samba/private/msg\.sock\[0-9]+$ VarFile+ANF+ARF
+/@@{ROOTPREFIX}var/lib/samba/private/msg\.sock/[0-9]+$ VarFile+ANF+ARF
 
 /@@{ROOTPREFIX}var/(log|cache|lib)/samba$ VarDir
 /@@{RUN}/samba(/msg\.lock)?$ VarDirInode
