@@ -112,7 +112,7 @@ echo "/var/log/unattended-upgrades/unattended-upgrades(-dpkg)?\.log\.1$ LowLog"
 echo "/var/log/unattended-upgrades/unattended-upgrades(-dpkg)?\.log\.2\.gz$ LoSerMemberLog"
 echo "/var/log/unattended-upgrades/unattended-upgrades(-dpkg)?\.log\.[3-6]\.gz$ SerMemberLog"
 echo "/var/log/unattended-upgrades/unattended-upgrades(-dpkg)?\.log\.7\.gz$ HiSerMemberLog"
-echo "/run/unattended-upgrades.progress$ LowLog"
+echo "/run/unattended-upgrades.progress$ VarFile"
 echo "!/run/unattended-upgrades.lock$"
 
 echo "/var/backups/apt\.extended_states\.0$ LowLog"
